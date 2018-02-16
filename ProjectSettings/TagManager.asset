@@ -4,9 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Hydrogen
-  - Oxygen
-  - Carbon
+  - Atom
+  - Bond
   layers:
   - Default
   - TransparentFX
