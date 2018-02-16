@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AtomProperties : MonoBehaviour {
-
-    public 
+public class Carbon : Atom {
 
 	// Use this for initialization
 	void Start () {

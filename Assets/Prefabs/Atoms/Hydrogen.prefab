@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33519700219963844}
   - component: {fileID: 135555911511903336}
   - component: {fileID: 23947974522754462}
+  - component: {fileID: 114696788142492118}
   m_Layer: 0
   m_Name: Hydrogen
   m_TagString: Hydrogen
@@ -83,6 +84,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1213260538645242}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114696788142492118
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1213260538645242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4acd639ebd72b477eb2709488cfb8007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nbTotalBonds: 1
 --- !u!135 &135555911511903336
 SphereCollider:
   m_ObjectHideFlags: 1
