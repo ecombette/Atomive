@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4043237370476472}
-  - component: {fileID: 114265672760897352}
   m_Layer: 0
   m_Name: Bound
   m_TagString: Untagged
@@ -197,17 +196,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114265672760897352
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1510449541111498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52aa0d0d02ef22a4b8c1ee68e5d63126, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114439509724345310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -307,10 +295,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761ae7ecd23a51c42bf6f2fa2cc207cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Symbol: 3
   DDController: {fileID: 0}
+  boundCount: 0
+  atomCount: 0
   bounds: []
+  boundsToPlace: []
+  boundNumber: 0
   linkedAtoms: []
-  nbLiaisonMax: 0
+  maxBounds: 0
+  rb: {fileID: 0}
+  AtomHighlight: {fileID: 0}
+  newBounds: []
 --- !u!136 &136543431397005894
 CapsuleCollider:
   m_ObjectHideFlags: 1

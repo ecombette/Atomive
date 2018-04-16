@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 
@@ -31,9 +32,17 @@ namespace Valve.VR.InteractionSystem
 		private GameObject boundHovered;
 		private bool connected;
 		private int atomCode;
+        public List<GameObject> listedBounds;
+        public List<GameObject> listedAtom1;
+        public List<GameObject> listedAtom2;
 
-		void Start () 
+        public MoleculeIdentifier molID;
+
+
+        void Start () 
 		{
+
+            
 			atomCode = -1;
 			device = GetComponent<SteamVR_TrackedController> ();
 			available = selected = hovered = false;
@@ -50,7 +59,7 @@ namespace Valve.VR.InteractionSystem
 			if (draggingBound) 
 			{
 				
-				if (lastAtomHovered != null) {
+				if (lastAtomHovered != null && lastAtomHovered.GetComponent<AtomBehavior>().boundCount < lastAtomHovered.GetComponent<AtomBehavior>().maxBounds && atomHovered.GetComponent<AtomBehavior>().boundCount < atomHovered.GetComponent<AtomBehavior>().maxBounds) {
 					boundLength = Vector3.Distance(lastAtomHovered.transform.position, atomHovered.transform.position)/2;
 					currentBound.transform.LookAt (lastAtomHovered.transform);
 					connected = true;
@@ -95,20 +104,76 @@ namespace Valve.VR.InteractionSystem
 					}
 					break;
 				case -1:
-					if (hovered && atomHovered != null) {
-						if (atomHovered.GetComponent<AtomBehavior> ().bounds.Count != 0) 
+					if (hovered && atomHovered != null)
+                    {
+						if (atomHovered.GetComponent<AtomBehavior> ().boundCount != 0) 
 						{
-							foreach(GameObject b in atomHovered.GetComponent<AtomBehavior> ().bounds)
-							{
-								Destroy (b);
-							}
+                                foreach (GameObject b in atomHovered.GetComponent<AtomBehavior>().bounds)
+                                {
+                                    listedBounds.Add(b);
+                                    listedAtom1.Add(b);
+                                    listedAtom2.Add(b);
+                                    //Debug.Log(b.transform.Find("Cylinder").GetComponent<AtomBehavior>().linkedAtoms[0].GetComponent<AtomBehavior>().boundCount);
+                                    //Debug.Log(b.transform.Find("Cylinder").GetComponent<AtomBehavior>().linkedAtoms[1]);
+                                   // b.transform.Find("Cylinder").GetComponent<AtomBehavior>().linkedAtoms[0].GetComponent<AtomBehavior>().DeleteBound(b);
+                                   // b.transform.Find("Cylinder").GetComponent<AtomBehavior>().linkedAtoms[1].GetComponent<AtomBehavior>().DeleteBound(b);
+                                    
+                                    
+                                    //atomHovered.GetComponent<AtomBehavior>().DeleteBound(b);
+                                   // Destroy(b);/*
+                                    //[0].GetComponent<AtomBehavior>().DeleteBound(b);
+                                    //b.transform.Find("Cylinder").GetComponent<AtomBehavior>().linkedAtoms[1].GetComponent<AtomBehavior>().DeleteBound(b);
+                                    //*/
 
-						}
-						Destroy (atomHovered);
-					}
-					if (hovered && boundHovered != null && !draggingBound) {
+                                }
+                                foreach (GameObject b in listedAtom1)
+                                {
+                                    Debug.Log(b);
+                                    b.transform.Find("Cylinder").GetComponent<AtomBehavior>().linkedAtoms[0].GetComponent<AtomBehavior>().DeleteBound(b);
+                                }
+                                foreach (GameObject b in listedAtom2)
+                                {
+                                    Debug.Log(b);
+                                    b.transform.Find("Cylinder").GetComponent<AtomBehavior>().linkedAtoms[1].GetComponent<AtomBehavior>().DeleteBound(b);
+                                }
+                                foreach (GameObject b in listedBounds)
+                                {
+                                    Debug.Log("Bound Destroy");
+                                    Destroy(b);
+                                }
+                                
+                                /*
+                                    for (int i = 0; i <= listedBounds.Count; i++)
+                                    {
+                                        if (listedBounds[i].transform.Find("Cylinder").GetComponent<AtomBehavior>().linkedAtoms[0] != atomHovered)
+                                        {
+                                            listedBounds[i].transform.Find("Cylinder").GetComponent<AtomBehavior>().linkedAtoms[0].GetComponent<AtomBehavior>().DeleteBound(listedBounds[i]);
+                                        }
+                                        else
+                                        {
+                                            listedBounds[i].transform.Find("Cylinder").GetComponent<AtomBehavior>().linkedAtoms[1].GetComponent<AtomBehavior>().DeleteBound(listedBounds[i]);
+                                        }
+                                        atomHovered.GetComponent<AtomBehavior>().DeleteBound(listedBounds[i]);
+                                        Destroy(listedBounds[i]);
 
-						Destroy (boundHovered);
+                                    }*/
+
+
+                                }
+                        
+						    Destroy (atomHovered);
+
+                            listedAtom1.Clear();
+                            listedAtom2.Clear();
+                            listedBounds.Clear();
+                        }
+					else if (hovered && boundHovered != null && !draggingBound)
+                    {
+                           
+                            boundHovered.GetComponent<AtomBehavior>().linkedAtoms[0].GetComponent<AtomBehavior>().DeleteBound(boundHovered.transform.parent.gameObject);
+                            
+                            boundHovered.GetComponent<AtomBehavior>().linkedAtoms[1].GetComponent<AtomBehavior>().DeleteBound(boundHovered.transform.parent.gameObject);
+                            Destroy (boundHovered.transform.parent.gameObject);
 					}
 					break;
 				case 0:
@@ -140,7 +205,8 @@ namespace Valve.VR.InteractionSystem
 				available = true;
 				creatingBound = false;
 				dragging = false;
-                if (draggingBound && connected && currentBound != null && lastAtomHovered.GetComponent<AtomBehavior>().isBondable() ) {
+                if (draggingBound && connected && currentBound != null)
+                {
 					atomHovered.GetComponent<AtomBehavior> ().AddBound (currentBound);
 					lastAtomHovered.GetComponent<AtomBehavior> ().AddBound (currentBound);
 					currentBound.transform.Find("Cylinder").GetComponent<AtomBehavior> ().AddAtom (atomHovered);
@@ -148,13 +214,16 @@ namespace Valve.VR.InteractionSystem
 					currentBound = null;
 					draggingBound = false;
                 }
+
                 else 
 				{
 					Destroy(currentBound);
 					draggingBound = false;	
 
 				}
-				if (lastAtomHovered != null) {
+
+				if (lastAtomHovered != null)
+                {
 					atomHovered = lastAtomHovered;
 				} 
 
@@ -271,36 +340,15 @@ namespace Valve.VR.InteractionSystem
 			return atomHovered;
 		}
 
-        public void ActivateElectroMagnetique()
-        {/*
-            foreach (GameObject a in this.molecule)
-                a.GetComponent<AtomBehavior>().SetForceActivated(true);
-
-            GameObject fixedAtom = this.molecule[0];
-            this.molecule.Remove(fixedAtom);
-
-            Sleep();
-
-           this.molecule.Add(fixedAtom);
-           foreach (GameObject a in this.molecule)
-                a.GetComponent<AtomBehavior>().SetForceActivated(false);  */
+        public bool isDraggingBound()
+        {
+            return draggingBound;
         }
 
-        static IEnumerator Sleep()
+        public void OnMoleculeID()
         {
-            print(Time.time);
-            yield return new WaitForSeconds(5);
-            print(Time.time);
-        }
-
-        public void AddAtomToMolecule(GameObject a)
-        {
-            molecule.Add(a);
-        }
-        public void RemoveAtomFromMolecule(GameObject a)
-        {
-            if (molecule.Contains(a))
-                molecule.Remove(a);
+            GameObject.Find("MoleculeDisplayer").GetComponent<Text>().text = molID.IdentifyMolecule();
+            
         }
     }
 }

@@ -19,14 +19,15 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4369978528686028}
+  - component: {fileID: 114501915673445082}
   - component: {fileID: 33837790672100034}
   - component: {fileID: 135860019590411786}
   - component: {fileID: 23923202888721606}
   - component: {fileID: 114055925533258284}
   - component: {fileID: 114466616824755580}
-  - component: {fileID: 114501915673445082}
   - component: {fileID: 82959619539537258}
   - component: {fileID: 54183618859233158}
+  - component: {fileID: 114582913749687990}
   m_Layer: 0
   m_Name: Carbon
   m_TagString: Atom
@@ -62,6 +63,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 30020dc14bc1c2d4ba57cd9cc4cb1e50, type: 2}
+  - {fileID: 2100000, guid: 3f53cca4e8039a441af75ac71e25769e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -282,12 +284,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761ae7ecd23a51c42bf6f2fa2cc207cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  Symbol: 1
   DDController: {fileID: 0}
+  boundCount: 0
+  atomCount: 0
   bounds: []
+  boundsToPlace: []
+  boundNumber: 0
   linkedAtoms: []
-  nbLiaisonMax: 4
+  maxBounds: 4
   rb: {fileID: 0}
+  AtomHighlight: {fileID: 2100000, guid: 3f53cca4e8039a441af75ac71e25769e, type: 2}
+  newBounds: []
+--- !u!114 &114582913749687990
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1450650044558694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ca2cc563cc33f542a5d9f8f661184ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highLightMaterial: {fileID: 2100000, guid: 7b939e5e799d98a469f594828ebab52e, type: 2}
+  fireHapticsOnHightlight: 0
 --- !u!135 &135860019590411786
 SphereCollider:
   m_ObjectHideFlags: 1
