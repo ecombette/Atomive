@@ -41,7 +41,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1704842756525634}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.205353, y: 4.3751893, z: 7.03713}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -207,6 +207,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   AtomHighlight: {fileID: 2100000, guid: 3f53cca4e8039a441af75ac71e25769e, type: 2}
   newBounds: []
+  marked: 0
 --- !u!114 &114576788716209562
 MonoBehaviour:
   m_ObjectHideFlags: 1

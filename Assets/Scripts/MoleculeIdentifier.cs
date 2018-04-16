@@ -43,6 +43,11 @@ namespace Valve.VR.InteractionSystem
             return moleculeIdentified;
         }
 
+        public void OnMoleculeId()
+        {
+            IdentifyMolecule();
+        }
+
         private bool SameMoleculeAs(string index)
         {
             Debug.Log("SameMolecule : " + moleculeDictionary[index]);
@@ -61,13 +66,13 @@ namespace Valve.VR.InteractionSystem
             Debug.Log("SameMolecule starting symbol : " + smilesStartingSymbol);
             List<AtomBehavior> startingPoints = GetStartingPointsByType(atomsInMolecule, smilesStartingSymbol);
             // ...and start it from there
-            bool rejected = true;
+            bool match = false;
             foreach(AtomBehavior atom in startingPoints)
             {
                 ResetAllMarks(atomsInMolecule);
                 if (CompareBranchFrom(ref smiles, atom))
                 {
-                    rejected = false;
+                    match = true;
                     break;
                 }
             }
@@ -75,15 +80,15 @@ namespace Valve.VR.InteractionSystem
             // we clean all our atoms
             ResetAllMarks(atomsInMolecule);
 
-            if (rejected)
-            {
-                Debug.Log("This molecule is not " + index);
-                return false;
-            }
-            else
+            if (match)
             {
                 Debug.Log("This molecule is " + index);
                 return true;
+            }
+            else
+            {
+                Debug.Log("This molecule is not " + index);
+                return false;
             }
         }
 
@@ -170,7 +175,7 @@ namespace Valve.VR.InteractionSystem
             while (!smiles.Equals("") && smiles[0] != ')')
             {
                 Debug.Log("In while loop : smiles is ." + smiles + ".");
-                Debug.Log("CompareBranchFrom : the smiles is not empty, emtering the while loop");
+                Debug.Log("CompareBranchFrom : the smiles is not empty, entering the while loop");
                 // an opening parenthesis means a new branch
                 if (smiles[0] == '(')
                 {
@@ -189,13 +194,13 @@ namespace Valve.VR.InteractionSystem
                     {
                         smiles = smiles.Substring(1);
                         nextSymbol = GetSmilesStartingSymbol(ref smiles);
-                        nonMarkedNeighboursOfInterest = startingPoint.GetNonMarkedNeighboursByBond(2);
+                        nonMarkedNeighboursOfInterest = startingPoint.GetNonMarkedNeighboursByBondType(2);
                     }
                     else if (smiles[0] == '#')
                     {
                         smiles = smiles.Substring(1);
                         nextSymbol = GetSmilesStartingSymbol(ref smiles);
-                        nonMarkedNeighboursOfInterest = startingPoint.GetNonMarkedNeighboursByBond(3);
+                        nonMarkedNeighboursOfInterest = startingPoint.GetNonMarkedNeighboursByBondType(3);
                     }
                     else
                     {
@@ -258,69 +263,5 @@ namespace Valve.VR.InteractionSystem
                 atom.resetMark();
             }
         }
-
-
-        /***
-        private void generateSmiles()
-        {
-            // Retrieve atoms in the molecule object
-            GameObject[] atomsInMolecule = GameObject.FindGameObjectsWithTag("Atom");
-            Debug.Log("Atoms retrieved from molecule object : " + atomsInMolecule.Length);
-
-            GameObject startingPoint = getStartingAtom(atomsInMolecule);
-            bool atomsLeft = true;
-            while (atomsLeft)
-            {
-                AtomBehavior currentAtom = startingPoint.GetComponent<AtomBehavior>();
-                if (currentAtom)
-                {
-                    currentAtom.Mark();
-
-                    // gérer cycles (chiffres) et atomes (crochets)
-                    // gérer ramifications (parenthèses)
-                }
-                else
-                {
-                    atomsLeft = false;
-                }
-            }
-
-            resetAllMarks(atomsInMolecule);
-        }
-
-        private GameObject getStartingAtom(GameObject[] atomsInMolecule)
-        {
-            // Retrieve the starting point
-            bool found = false;
-            int i = 0;
-            while (!found && i < atomsInMolecule.Length - 1)
-            {
-                i++;
-                AtomBehavior atomBehavior = atomsInMolecule[i].GetComponent<AtomBehavior>();
-                if (atomBehavior.type != 0)
-                {
-                    int notHydrogen = 0;
-                    foreach (GameObject b in atomBehavior.bounds)
-                    {
-                        AtomBehavior boundBehavior = b.GetComponent<AtomBehavior>();
-                        if (boundBehavior.linkedAtoms[0] != atomsInMolecule[i] && boundBehavior.linkedAtoms[0].GetComponent<AtomBehavior>().type != 0)
-                        {
-                            notHydrogen++;
-                        }
-                    }
-                    if (notHydrogen < 2)
-                        found = true;
-                }
-            }
-            if (found)
-            {
-                return atomsInMolecule[i];
-            }
-            else
-            {
-                return atomsInMolecule[0];
-            }
-        }
-        ***/
     }
 }

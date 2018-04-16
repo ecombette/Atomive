@@ -41,7 +41,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1409963831371718}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.45, y: 3.439735, z: 11.37}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761ae7ecd23a51c42bf6f2fa2cc207cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  Symbol: 0
   DDController: {fileID: 0}
   boundCount: 0
   atomCount: 0
@@ -283,6 +283,8 @@ MonoBehaviour:
   maxBounds: 1
   rb: {fileID: 0}
   AtomHighlight: {fileID: 2100000, guid: 3f53cca4e8039a441af75ac71e25769e, type: 2}
+  newBounds: []
+  marked: 0
 --- !u!114 &114689858387569266
 MonoBehaviour:
   m_ObjectHideFlags: 1

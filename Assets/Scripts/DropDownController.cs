@@ -41,8 +41,6 @@ namespace Valve.VR.InteractionSystem
 
         void Start () 
 		{
-
-            
 			atomCode = -1;
 			device = GetComponent<SteamVR_TrackedController> ();
 			available = selected = hovered = false;
@@ -51,14 +49,12 @@ namespace Valve.VR.InteractionSystem
 			creatingBound = draggingBound = false;
 			boundLength = 0;
 			connected = false;
-
         }
 	
 		void Update () 
 		{
 			if (draggingBound) 
 			{
-				
 				if (lastAtomHovered != null && lastAtomHovered.GetComponent<AtomBehavior>().boundCount < lastAtomHovered.GetComponent<AtomBehavior>().maxBounds && atomHovered.GetComponent<AtomBehavior>().boundCount < atomHovered.GetComponent<AtomBehavior>().maxBounds) {
 					boundLength = Vector3.Distance(lastAtomHovered.transform.position, atomHovered.transform.position)/2;
 					currentBound.transform.LookAt (lastAtomHovered.transform);
@@ -72,8 +68,6 @@ namespace Valve.VR.InteractionSystem
 				Vector3 newScale = currentBound.transform.localScale;
 				newScale.z = boundLength;
 				currentBound.transform.localScale = newScale ;
-
-
 			}
 			else if (creatingBound) 
 			{
@@ -96,7 +90,6 @@ namespace Valve.VR.InteractionSystem
 			}
 			else if ((Input.GetKeyDown (KeyCode.JoystickButton14) || Input.GetKeyDown (KeyCode.JoystickButton15)) && available) {
 				switch (atomCode) {
-
 				case -2:
 					if (hovered) 
 					{
@@ -227,17 +220,9 @@ namespace Valve.VR.InteractionSystem
 					atomHovered = lastAtomHovered;
 				} 
 
-					lastAtomHovered = null;
-
-
+				lastAtomHovered = null;
 			}
-
-
-		
 		}
-
-
-
 
 		public void OnOxygen()
 		{
@@ -261,8 +246,6 @@ namespace Valve.VR.InteractionSystem
 			selected = true;
 			available = false;
 			TriggerVibration (1000);
-
-
 		}
 		public void OnBound()
 		{
@@ -270,7 +253,6 @@ namespace Valve.VR.InteractionSystem
 			selected = true;
 			available = false;
 			TriggerVibration (1000);
-
 		}
 
 		public void OnDel()
@@ -312,9 +294,7 @@ namespace Valve.VR.InteractionSystem
 				atomHovered = null;
 			}
 			lastAtomHovered = null;
-
-
-			
+            
 			hovered = false;
 		}
 
@@ -348,7 +328,6 @@ namespace Valve.VR.InteractionSystem
         public void OnMoleculeID()
         {
             GameObject.Find("MoleculeDisplayer").GetComponent<Text>().text = molID.IdentifyMolecule();
-            
         }
     }
 }
