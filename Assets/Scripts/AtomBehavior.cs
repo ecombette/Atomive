@@ -29,10 +29,10 @@ namespace Valve.VR.InteractionSystem
 
         public bool marked = false; // Marqueur pour l'identification
 
-  //      void Start () 
-		//{
-  //          DDController = GameObject.Find("DropDownController");
-  //      }
+        void Start () 
+		{
+            DDController = GameObject.Find("DropDownController");
+        }
 
 
         public void placeBounds()
@@ -118,100 +118,100 @@ namespace Valve.VR.InteractionSystem
             toPlaceBoundCount = 0;
         }
 
-  //          void Update () 
-		//{
-  //          if (boundCount < 0) boundCount = 0;
+        void Update()
+        {
+            if (boundCount < 0) boundCount = 0;
 
-  //          if (atomCount != 0) //Si jamais on est dans une liaison dont les atomes sont en train de bouger
-  //          {
-  //              if (boundCount == 0 && DDController.GetComponent<DropDownController>().isMoving() && DDController.GetComponent<DropDownController>().atomMoving() == linkedAtoms[0] || DDController.GetComponent<DropDownController>().atomMoving() == linkedAtoms[1])
-  //              {
-  //                  placeBounds();
-  //                  /*
-  //                  toPlaceBoundCount = 0;
-  //                  foreach (GameObject bound in linkedAtoms[0].GetComponent<AtomBehavior>().bounds) //pour chaque liaison dans le premier atome linked
-  //                  {
+            if (atomCount != 0) //Si jamais on est dans une liaison dont les atomes sont en train de bouger
+            {
+                if (boundCount == 0 && DDController.GetComponent<DropDownController>().isMoving() && DDController.GetComponent<DropDownController>().atomMoving() == linkedAtoms[0] || DDController.GetComponent<DropDownController>().atomMoving() == linkedAtoms[1])
+                {
+                    placeBounds();
+                    /*
+                    toPlaceBoundCount = 0;
+                    foreach (GameObject bound in linkedAtoms[0].GetComponent<AtomBehavior>().bounds) //pour chaque liaison dans le premier atome linked
+                    {
 
-  //                      foreach (GameObject secondBound in linkedAtoms[1].GetComponent<AtomBehavior>().bounds) // pour chaque liaison dans le 2e atome linked
-  //                      {
-  //                          if (bound == secondBound)
-  //                          {
-  //                              boundsToPlace.Add(bound);
-  //                              toPlaceBoundCount++;
-  //                          }
+                        foreach (GameObject secondBound in linkedAtoms[1].GetComponent<AtomBehavior>().bounds) // pour chaque liaison dans le 2e atome linked
+                        {
+                            if (bound == secondBound)
+                            {
+                                boundsToPlace.Add(bound);
+                                toPlaceBoundCount++;
+                            }
                             
-  //                      }
-  //                  }
+                        }
+                    }
 
-  //                          if (toPlaceBoundCount == 1)
-  //                          {
-  //                      Debug.Log("ONE BOUND TO PLACE");
-  //                              foreach (GameObject toPlaceBound in boundsToPlace)
-  //                              {
-  //                                  boundLength = Vector3.Distance(linkedAtoms[0].transform.position, linkedAtoms[1].transform.position) / 2;
-  //                                  Vector3 newScale = transform.parent.GetComponent<Transform>().localScale;
-  //                                  newScale.z = boundLength;
-  //                                  transform.parent.GetComponent<Transform>().localScale = newScale;
-  //                                  transform.parent.transform.position = linkedAtoms[0].transform.position;
-  //                                  transform.parent.transform.rotation = Quaternion.LookRotation(linkedAtoms[1].transform.position - linkedAtoms[0].transform.position);
-  //                                  //transform.parent.transform.LookAt(linkedAtoms[1].transform);
-  //                              }
-  //                          }
-  //                          else if (toPlaceBoundCount == 2)
-  //                          {
-  //                      Debug.Log("TWO BOUND TO PLACE");
-  //                      int side = 1;
-  //                              foreach (GameObject toPlaceBound in boundsToPlace)
-  //                              {
-  //                                  boundLength = Vector3.Distance(linkedAtoms[0].transform.position, linkedAtoms[1].transform.position) / 2;
-  //                                  Vector3 newScale = transform.parent.GetComponent<Transform>().localScale;
-  //                                  newScale.z = boundLength;
-  //                                  toPlaceBound.GetComponent<Transform>().localScale = newScale;
-  //                                  toPlaceBound.transform.position = linkedAtoms[0].transform.position + transform.parent.transform.up * (side) * 0.02f;
-  //                                  toPlaceBound.transform.rotation = Quaternion.LookRotation(linkedAtoms[1].transform.position - linkedAtoms[0].transform.position);
-  //                                  side = -1;
-  //                                  //transform.parent.transform.LookAt(linkedAtoms[1].transform);
-  //                              }
-  //                          }
+                            if (toPlaceBoundCount == 1)
+                            {
+                        Debug.Log("ONE BOUND TO PLACE");
+                                foreach (GameObject toPlaceBound in boundsToPlace)
+                                {
+                                    boundLength = Vector3.Distance(linkedAtoms[0].transform.position, linkedAtoms[1].transform.position) / 2;
+                                    Vector3 newScale = transform.parent.GetComponent<Transform>().localScale;
+                                    newScale.z = boundLength;
+                                    transform.parent.GetComponent<Transform>().localScale = newScale;
+                                    transform.parent.transform.position = linkedAtoms[0].transform.position;
+                                    transform.parent.transform.rotation = Quaternion.LookRotation(linkedAtoms[1].transform.position - linkedAtoms[0].transform.position);
+                                    //transform.parent.transform.LookAt(linkedAtoms[1].transform);
+                                }
+                            }
+                            else if (toPlaceBoundCount == 2)
+                            {
+                        Debug.Log("TWO BOUND TO PLACE");
+                        int side = 1;
+                                foreach (GameObject toPlaceBound in boundsToPlace)
+                                {
+                                    boundLength = Vector3.Distance(linkedAtoms[0].transform.position, linkedAtoms[1].transform.position) / 2;
+                                    Vector3 newScale = transform.parent.GetComponent<Transform>().localScale;
+                                    newScale.z = boundLength;
+                                    toPlaceBound.GetComponent<Transform>().localScale = newScale;
+                                    toPlaceBound.transform.position = linkedAtoms[0].transform.position + transform.parent.transform.up * (side) * 0.02f;
+                                    toPlaceBound.transform.rotation = Quaternion.LookRotation(linkedAtoms[1].transform.position - linkedAtoms[0].transform.position);
+                                    side = -1;
+                                    //transform.parent.transform.LookAt(linkedAtoms[1].transform);
+                                }
+                            }
 
-  //                  else if (toPlaceBoundCount == 3)
-  //                  {
-  //                      Debug.Log("THREE BOUND TO PLACE");
-  //                      int side = 1;
-  //                      foreach (GameObject toPlaceBound in boundsToPlace)
-  //                      {
-  //                          boundLength = Vector3.Distance(linkedAtoms[0].transform.position, linkedAtoms[1].transform.position) / 2;
-  //                          Vector3 newScale = transform.parent.GetComponent<Transform>().localScale;
-  //                          newScale.z = boundLength;
-  //                          toPlaceBound.GetComponent<Transform>().localScale = newScale;
-  //                          toPlaceBound.transform.position = linkedAtoms[0].transform.position + transform.parent.transform.up * (side) * 0.02f;
-  //                          toPlaceBound.transform.rotation = Quaternion.LookRotation(linkedAtoms[1].transform.position - linkedAtoms[0].transform.position);
-  //                          side = side - 1;
-  //                          //transform.parent.transform.LookAt(linkedAtoms[1].transform);
-  //                      }
-  //                  }
+                    else if (toPlaceBoundCount == 3)
+                    {
+                        Debug.Log("THREE BOUND TO PLACE");
+                        int side = 1;
+                        foreach (GameObject toPlaceBound in boundsToPlace)
+                        {
+                            boundLength = Vector3.Distance(linkedAtoms[0].transform.position, linkedAtoms[1].transform.position) / 2;
+                            Vector3 newScale = transform.parent.GetComponent<Transform>().localScale;
+                            newScale.z = boundLength;
+                            toPlaceBound.GetComponent<Transform>().localScale = newScale;
+                            toPlaceBound.transform.position = linkedAtoms[0].transform.position + transform.parent.transform.up * (side) * 0.02f;
+                            toPlaceBound.transform.rotation = Quaternion.LookRotation(linkedAtoms[1].transform.position - linkedAtoms[0].transform.position);
+                            side = side - 1;
+                            //transform.parent.transform.LookAt(linkedAtoms[1].transform);
+                        }
+                    }
                     
-  //                  Debug.Log("Bounds between the 2 atoms " + toPlaceBoundCount);
-  //                  boundsToPlace = new List<GameObject>();
-  //                  toPlaceBoundCount = 0;
-  //  */
-  //              }
-  //          }
-  //          else if (!DDController.GetComponent<DropDownController>().isDraggingBound())
-  //          {
-  //              if (maxBounds != boundCount)
-  //              {
-  //                  gameObject.GetComponent<MeshRenderer>().materials[1].SetColor("g_vOutlineColor", Color.red);
-  //              }
+                    Debug.Log("Bounds between the 2 atoms " + toPlaceBoundCount);
+                    boundsToPlace = new List<GameObject>();
+                    toPlaceBoundCount = 0;
+    */
+                }
+            }
+            else if (!DDController.GetComponent<DropDownController>().isDraggingBound())
+            {
+                if (maxBounds != boundCount)
+                {
+                    gameObject.GetComponent<MeshRenderer>().materials[1].SetColor("g_vOutlineColor", Color.red);
+                }
 
-  //              else
-  //              {
-  //                  gameObject.GetComponent<MeshRenderer>().materials[1].SetColor("g_vOutlineColor", Color.green);
-  //              }
-  //          }
-		//}
+                else
+                {
+                    gameObject.GetComponent<MeshRenderer>().materials[1].SetColor("g_vOutlineColor", Color.green);
+                }
+            }
+        }
 
-		public void OnHovered()
+        public void OnHovered()
 		{
 			DDController.GetComponent<DropDownController> ().OnAtomHovered (gameObject);
 		}
@@ -313,11 +313,14 @@ namespace Valve.VR.InteractionSystem
         {
             List<AtomBehavior> nonMarkedNeighboursOfInterest = new List<AtomBehavior>();
 
-            List<AtomBehavior> neighbours = GetAllNeighbours();
-            foreach (AtomBehavior atom in neighbours)
+            if (bondType != 2 && bondType != 3)
             {
-                // TODO: CHECK BOND TYPE
-
+                bondType = 1;
+            }
+            
+            List<AtomBehavior> neighboursOfInterest = SelectNeighboursByBondType(bondType);
+            foreach (AtomBehavior atom in neighboursOfInterest)
+            {
                 if (atom.Symbol != AtomType.H && atom.Symbol != AtomType.Void && !atom.isMarked())
                 {
                     nonMarkedNeighboursOfInterest.Add(atom);
@@ -348,16 +351,42 @@ namespace Valve.VR.InteractionSystem
             return neighbours;
         }
 
+        private List<AtomBehavior> SelectNeighboursByBondType(int bondType)
+        {
+            List<AtomBehavior> candidates = GetAllNeighbours();
+            List<AtomBehavior> neighbours = new List<AtomBehavior>();
+
+            foreach(AtomBehavior atom in candidates)
+            {
+                if(!neighbours.Contains(atom) && CountBoundMultiplicity(candidates, atom) == bondType)
+                {
+                    neighbours.Add(atom);
+                }
+            }
+
+            Debug.Log("SelectNeighboursByBondType neighbours size : " + neighbours.Count);
+            return neighbours;
+        }
+
+        private int CountBoundMultiplicity(List<AtomBehavior> atoms, AtomBehavior atom)
+        {
+            int count = 0;
+
+            foreach(AtomBehavior currentAtom in atoms)
+            {
+                if(currentAtom == atom)
+                {
+                    count++;
+                }
+            }
+
+            Debug.Log("CountBoundMultiplicity : " + atom);
+            Debug.Log("CountBoundMultiplicity : " + count);
+            return count;
+        }
+
         public bool isMarked() { return marked; }
         public void Mark() { marked = true; }
         public void resetMark() { marked = false; }
     }
-
-
-
-
-
-
-
-
 }

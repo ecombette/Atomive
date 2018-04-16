@@ -36,11 +36,29 @@ public class MoleculeDictionary : MonoBehaviour {
         // Éthane
         molecules.Add("Éthane", "CC");
 
+        // Propane
+        molecules.Add("Propane", "CCC");
+
+        // Butane
+        molecules.Add("Butane", "CCCC");
+
         // Méthanol
         molecules.Add("Méthanol", "CO");
 
         // Éthanol
         molecules.Add("Éthanol", "CCO");
+
+        // Propanol
+        molecules.Add("Propanol", "CCCO");
+
+        // Butan-1-ol
+        molecules.Add("Butan-1-ol", "CCCCO");
+
+        // Acétylène
+        molecules.Add("Acétylène", "C#C");
+
+        // Acétone
+        molecules.Add("Acétone", "CC(=O)C");
 
         /*** TEST ***/
         Test();
