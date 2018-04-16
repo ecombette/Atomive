@@ -1,6 +1,6 @@
 # Atomive
 
-VR Unity project (with HTC Vive) for modelling, assembling and manipulating atoms and molecules in the context of physics and chemistry teaching.
+Atomive is a VR project developed with Unity for the HTC Vive, aiming at modelling, assembling and manipulating atoms and molecules in the context of physics and chemistry teaching.
 
 The system currently supports multiple bonds and branches, you only have to add entries to the dictionary if you want it to be more complete : add them in the Awake() method of MoleculeDictionary, following the [SMILES specification](https://en.wikipedia.org/wiki/Simplified_molecular-input_line-entry_system) for the recognition algorithm to work.
 
