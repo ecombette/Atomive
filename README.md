@@ -7,4 +7,10 @@ The molecule identification system currently recognizes basic molecules, but als
 
 **N.B.** For now, our system cannot process SMILES containing cycles : it will simply not be recognized, even if you reproduce it correctly in the virtual environment. It is still under development!
 
+**Works in progress :**
+- add cycle support for the identification algorithm
+- extend the dictionary
+- simulate the electrochemical forces
+- add a training mode
+
 *A project at UQAC (Québec), Canada, by Aurélien Durance, Ivan Alt and Elise Combette.*
